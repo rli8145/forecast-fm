@@ -101,13 +101,18 @@ Evaluation metrics and diagnostics used in `ml/evaluate.py`:
 - Confusion matrices (visualized using matplotlib)
 
 ![Confusion matrices](ml/results/confusion_matrices.png)
+
+- Spearman Correlation Heatmap
+
+![Spearman correlation heatmap](ml/results/spearman_correlation.png)
+
 see `ml/results/evaluate_results.txt` for other final diagnostics
 
 ### Conclusion
 
-We found that `energy`, `valence`, `tempo`, `acousticness`, `loudness`, standardized using `StandardScalar`, were a set of features with consistent, moderately high PFI scores across multiple CV folds and all four models. A structured imbalance was present, with 'energy' (mean 0.224) slightly dominating weaker supporting features such as tempo (mean 0.113). We ultimately achieved **0.758 ± 0.014** weighted F1 with 5-fold stratified cross-validation on our Gradient Boosting production model. 
+We found that `energy`, `valence`, `tempo`, `acousticness`, `loudness`, standardized using `StandardScalar`, were a set of features with consistent, moderately high PFI scores across multiple CV folds and all four models. A healthy imbalance was present, with slightly weaker supporting features such as tempo (mean 0.113) complementing stronger features such as 'energy' (mean 0.224). We ultimately achieved **0.758 ± 0.014** weighted F1 with 5-fold stratified cross-validation on our Gradient Boosting production model. 
 
-We initially intended the Naive Bayes model to be a deliberately weak baseline, having reasoned that audio features such as 'energy' and 'loudness' are highly correlated and conditionally dependent. However we ended up with a surprisingly high **0.745 CV F1**. Indeed, in our regime, where features tend to cluster across classes and predictive signal is distributed relatively evenly (see PFI), Naive Bayes can still effectively aggregate signals. 
+We initially intended the Naive Bayes model to be a deliberately weak baseline, having assumed that audio features should be highly correlated and conditionally dependent. However we ended up with a surprisingly high **0.745 CV F1**. Indeed, in our regime, where features tend to cluster around the chosen classes and predictive signal is distributed relatively evenly - PFI scores shows no feature dominates completely, and Spearman correlation coefficients are contained in the relatively moderate range **[-0.62, 0.58]** - Naive Bayes can still effectively aggregate signals. 
 
 More expressive models such as Gradient Boosting are nonetheless able to achieve additional gains by modeling residual feature dependencies. For instance, Naive Bayes struggled on differentiating between the similar classes of `snowy` and `rainy`, but Gradient Boosting reduced from **146 to 59** such misclassifications.
 
