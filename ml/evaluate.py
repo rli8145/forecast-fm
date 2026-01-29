@@ -58,7 +58,7 @@ def evaluate_permutation_importance(
     return importance
 
 # SPEARMAN CORRELATION
-def evaluate_spearman(X: pd.DataFrame, y: pd.Series) -> pd.DataFrame:
+def compute_spearman(X: pd.DataFrame, y: pd.Series) -> pd.DataFrame:
     y_codes = y.astype("category").cat.codes
     df = X.copy()
     df["weather_code"] = y_codes
@@ -67,28 +67,31 @@ def evaluate_spearman(X: pd.DataFrame, y: pd.Series) -> pd.DataFrame:
     print(corr.to_string())
     return corr
 
-# MAIN EVALUATION FUNCTION, PLOT CONFUSION MATRICES
-def main() -> None:
-    X, y = load_data()
-    cv = build_cv(y)
-    models = {
-        "Naive Bayes": naive_bayes(),
-        "Logistic Regression": logistic_regression(),
-        "Random Forest": random_forest(),
-        "Gradient Boosting": gradient_boosting(),
-    }
+def plot_spearman(X: pd.DataFrame, y: pd.Series) -> None:
+    corr = compute_spearman(X, y)
+    fig, ax = plt.subplots(figsize=(6, 5))
+    im = ax.imshow(corr, cmap="coolwarm", vmin=-1, vmax=1)
+    ax.set_xticks(range(len(corr.columns)))
+    ax.set_yticks(range(len(corr.index)))
+    ax.set_xticklabels(corr.columns, rotation=45, ha="right")
+    ax.set_yticklabels(corr.index)
+    fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    ax.set_title("Spearman Correlation")
+    fig.tight_layout()
+    plt.show()
 
+# CONFUSION MATRICES
+def plot_confusion_matrices(
+    models: dict[str, object],
+    X_train: pd.DataFrame,
+    X_test: pd.DataFrame,
+    y_train: pd.Series,
+    y_test: pd.Series,
+    X: pd.DataFrame,
+    y: pd.Series,
+    cv,
+) -> None:
     labels = sorted(y.unique())
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=42,
-        stratify=y if (y.value_counts() >= 2).all() else None,
-    )
-
-    evaluate_spearman(X, y)
-
     fig, axes = plt.subplots(1, len(models), figsize=(5 * len(models), 4))
     if len(models) == 1:
         axes = [axes]
@@ -106,6 +109,29 @@ def main() -> None:
 
     fig.tight_layout()
     plt.show()
+
+# MAIN EVALUATION FUNCTION
+def main() -> None:
+    X, y = load_data()
+    cv = build_cv(y)
+    models = {
+        "Naive Bayes": naive_bayes(),
+        "Logistic Regression": logistic_regression(),
+        "Random Forest": random_forest(),
+        "Gradient Boosting": gradient_boosting(),
+    }
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=0.2,
+        random_state=42,
+        stratify=y if (y.value_counts() >= 2).all() else None,
+    )
+
+    plot_spearman(X, y)
+
+    plot_confusion_matrices(models, X_train, X_test, y_train, y_test, X, y, cv)
 
 if __name__ == "__main__":
     main()
