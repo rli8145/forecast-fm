@@ -57,6 +57,16 @@ def evaluate_permutation_importance(
     print(importance.to_string())
     return importance
 
+# SPEARMAN CORRELATION
+def evaluate_spearman(X: pd.DataFrame, y: pd.Series) -> pd.DataFrame:
+    y_codes = y.astype("category").cat.codes
+    df = X.copy()
+    df["weather_code"] = y_codes
+    corr = df.corr(method="spearman")
+    print("Spearman correlation matrix (including weather_code):")
+    print(corr.to_string())
+    return corr
+
 # MAIN EVALUATION FUNCTION, PLOT CONFUSION MATRICES
 def main() -> None:
     X, y = load_data()
@@ -76,6 +86,8 @@ def main() -> None:
         random_state=42,
         stratify=y if (y.value_counts() >= 2).all() else None,
     )
+
+    evaluate_spearman(X, y)
 
     fig, axes = plt.subplots(1, len(models), figsize=(5 * len(models), 4))
     if len(models) == 1:

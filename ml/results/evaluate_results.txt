@@ -50,3 +50,12 @@ Gradient Boosting confusion matrix:
  [ 44 157  59   0]
  [ 23  62 175   0]
  [ 14   0   0 246]]
+
+ Spearman correlation matrix (including weather_code):
+                energy   valence     tempo  acousticness  loudness  weather_code
+energy        1.000000  0.570061  0.580163     -0.612984  0.569320      0.314701
+valence       0.570061  1.000000  0.438830     -0.540545  0.488814      0.409910
+tempo         0.580163  0.438830  1.000000     -0.539373  0.451180      0.178890
+acousticness -0.612984 -0.540545 -0.539373      1.000000 -0.518121     -0.282367
+loudness      0.569320  0.488814  0.451180     -0.518121  1.000000      0.223940
+weather_code  0.314701  0.409910  0.178890     -0.282367  0.223940      1.000000
