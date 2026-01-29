@@ -102,7 +102,7 @@ Evaluation metrics and diagnostics used in `ml/evaluate.py`:
 
 ![Confusion matrices](ml/results/confusion_matrices.png)
 
-- Spearman Correlation Heatmap
+- Spearman correlation heatmap
 
 ![Spearman correlation heatmap](ml/results/spearman_correlation.png)
 
