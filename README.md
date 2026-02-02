@@ -1,8 +1,70 @@
 # Weather-Conditioned Music Classification Engine
 
-Predict a suitable weather category given a song's audio features.
+Predict a suitable weather category given a user-inputted song.
 
-## Two Demo Paths
+## Tech Stack
+- Backend: Python - scikit-learn, pandas, matplotlib, FastAPI (served via Uvicorn)
+- Frontend: React, Typescript, Tailwind CSS
+
+## Project Structure
+
+```text
+.
+├── backend
+│   ├── api
+│   └── app
+├── data
+├── frontend
+│   ├── public
+│   └── src
+├── ml
+│   └── results
+├── README.md
+└── requirements.txt
+```
+
+## APIs Used
+- Spotify Web API (song lookup)
+- ReccoBeats API (audio features)
+- OpenWeatherMap API (real-time weather context) (NOT USED IN CURRENT VERSION)
+
+## ML Component
+
+- Data source: `data/track_data.csv`. We ultimately used 5201 labelled tracks for training/testing, around a third of which were pulled using the Spotify Web API from Spotify-generated and user-made playlists. Fetching the rest of the data was a challenge, as no canonical dataset mapping songs to weather labels exists. We thus decided that since weather labels are **weakly supervised**, it was appropriate to prompt LLMS (ChatGPT and Anthropic) for supplemental data based on explicit heuristics we designed (e.g. "melancholic and reflective ambiance" -> `rainy`).
+- Features: `energy`, `valence`, `tempo`, `acousticness`, `loudness`. `StandardScalar` was used to standardize each feature.
+- Target label: `weather`: one of `sunny`, `cloudy`, `rainy`, `snowy` 
+- Models in `ml/models.py`, trained using `Pipeline` to avoid data leakage: Naive Bayes, Logistic Regression (baseline), Random Forest, Gradient Boosting (production)
+
+Training and evaluation scripts:
+
+```bash
+python ml/train.py
+python ml/evaluate.py
+```
+
+Evaluation metrics and diagnostics used in `ml/evaluate.py`:
+
+- Weighted F1 on a simple holdout split was initially used, and we enhanced by using Stratified K-Fold cross-validation with weighted F1
+- Permutation feature importance (PFI)
+- Confusion matrices (visualized using matplotlib)
+
+![Confusion matrices](ml/results/confusion_matrices.png)
+
+- Spearman correlation heatmap
+
+![Spearman correlation heatmap](ml/results/spearman_correlation.png)
+
+see `ml/results/evaluate_results.txt` for other final diagnostics
+
+### Conclusion
+
+We found that `energy`, `valence`, `tempo`, `acousticness`, `loudness`, standardized using `StandardScalar`, were a set of features with consistent, moderately high PFI scores across multiple CV folds and all four models. A healthy imbalance was present, with slightly weaker supporting features such as tempo (mean 0.113) complementing stronger features such as 'energy' (mean 0.224). We ultimately achieved **0.758 ± 0.014** weighted F1 with 5-fold stratified cross-validation on our Gradient Boosting production model. 
+
+We initially intended the Naive Bayes model to be a deliberately weak baseline, having assumed that audio features should be highly correlated and conditionally dependent. However we ended up with a surprisingly high **0.745 CV F1**. Indeed, in our regime, where features tend to cluster around the chosen classes and predictive signal is distributed relatively evenly - PFI scores shows no feature dominates completely, and Spearman correlation coefficients are contained in the relatively moderate range **[-0.62, 0.58]** - Naive Bayes can still effectively aggregate signals. 
+
+More expressive models such as Gradient Boosting are nonetheless able to achieve additional gains by modeling residual feature dependencies. For instance, Naive Bayes struggled on differentiating between the similar classes of `snowy` and `rainy`, but Gradient Boosting reduced from **146 to 59** such misclassifications.
+
+## Demo Paths
 
 ### Option 1: Run the Website Locally
 
@@ -53,68 +115,6 @@ python 'ml/features->weather.py'
 ```
 
 The user will be prompted for `energy [0.0, 1.0]`, `valence [0.0, 1.0]`, `tempo (BPM)`, `acousticness [0.0, 1.0]`, and `loudness (dB)` in order, and the predicted weather category is printed.
-
-## Tech Stack
-- Backend: Python - scikit-learn, pandas, matplotlib, FastAPI (served via Uvicorn)
-- Frontend: React, Typescript, Tailwind CSS
-
-## Project Structure
-
-```text
-.
-├── backend
-│   ├── api
-│   └── app
-├── data
-├── frontend
-│   ├── public
-│   └── src
-├── ml
-│   └── results
-├── README.md
-└── requirements.txt
-```
-
-## APIs Used
-- Spotify Web API (song lookup)
-- ReccoBeats API (audio features)
-- OpenWeatherMap API (real-time weather context) (NOT USED IN CURRENT VERSION)
-
-## ML Component
-
-- Data source: `data/track_data.csv`. We ultmately used 5201 labelled tracks for training/testing, around a third of which were pulled using the Spotify Web API from Spotify-generated and user-made playlists. As no other canonical dataset mapping songs to weather labels exists, and weather labels are **weakly supervised**, we prompted LLMS (ChatGPT and Anthropic) to generate supplemental data based on some explicit heuristics (e.g. melancholic and reflective ambiance -> `rainy`).
-- Features: `energy`, `valence`, `tempo`, `acousticness`, `loudness`. `StandardScalar` was used to standardize each feature.
-- Target label: `weather`: one of `sunny`, `cloudy`, `rainy`, `snowy` 
-- Models in `ml/models.py`, trained using `Pipeline` to avoid data leakage: Naive Bayes, Logistic Regression (baseline), Random Forest, Gradient Boosting (production)
-
-Training and evaluation scripts:
-
-```bash
-python ml/train.py
-python ml/evaluate.py
-```
-
-Evaluation metrics and diagnostics used in `ml/evaluate.py`:
-
-- Weighted F1 on a simple holdout split was initially used, and we enhanced by using Stratified K-Fold cross-validation with weighted F1
-- Permutation feature importance (PFI)
-- Confusion matrices (visualized using matplotlib)
-
-![Confusion matrices](ml/results/confusion_matrices.png)
-
-- Spearman correlation heatmap
-
-![Spearman correlation heatmap](ml/results/spearman_correlation.png)
-
-see `ml/results/evaluate_results.txt` for other final diagnostics
-
-### Conclusion
-
-We found that `energy`, `valence`, `tempo`, `acousticness`, `loudness`, standardized using `StandardScalar`, were a set of features with consistent, moderately high PFI scores across multiple CV folds and all four models. A healthy imbalance was present, with slightly weaker supporting features such as tempo (mean 0.113) complementing stronger features such as 'energy' (mean 0.224). We ultimately achieved **0.758 ± 0.014** weighted F1 with 5-fold stratified cross-validation on our Gradient Boosting production model. 
-
-We initially intended the Naive Bayes model to be a deliberately weak baseline, having assumed that audio features should be highly correlated and conditionally dependent. However we ended up with a surprisingly high **0.745 CV F1**. Indeed, in our regime, where features tend to cluster around the chosen classes and predictive signal is distributed relatively evenly - PFI scores shows no feature dominates completely, and Spearman correlation coefficients are contained in the relatively moderate range **[-0.62, 0.58]** - Naive Bayes can still effectively aggregate signals. 
-
-More expressive models such as Gradient Boosting are nonetheless able to achieve additional gains by modeling residual feature dependencies. For instance, Naive Bayes struggled on differentiating between the similar classes of `snowy` and `rainy`, but Gradient Boosting reduced from **146 to 59** such misclassifications.
 
 ## Notes/Possible Improvements
 
