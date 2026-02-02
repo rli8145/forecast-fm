@@ -67,6 +67,8 @@ More expressive models such as Gradient Boosting are nonetheless able to achieve
 
 ## Demo Paths
 
+[Video Demo](https://drive.google.com/file/d/1nc7trHjiscxEsSmc9bRy0GR-1T8RSImB/view?usp=sharing)
+
 ### Option 1: Run the Website Locally
 
 This starts the FastAPI backend + the Vite frontend.
@@ -101,8 +103,6 @@ npm run dev
 ```
 
 5. Open the app using the given `localhost` server.
-
-Video: https://drive.google.com/file/d/1nc7trHjiscxEsSmc9bRy0GR-1T8RSImB/view?usp=sharing
 
 ### Option 2: Manual Features via the ML Script
 
