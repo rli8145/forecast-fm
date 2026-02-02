@@ -31,7 +31,7 @@ Predict a suitable weather category given a user-inputted song.
 
 ## ML Component
 
-- Data source: `data/track_data.csv`. We ultimately used 5201 labelled tracks for training/testing, around a third of which were pulled from Spotify-generated and user-made playlists using the Spotify Web API. Fetching the rest of the data was a challenge, as no canonical dataset mapping songs to weather labels exists. We thus decided that since weather labels are **weakly supervised**, it was appropriate to prompt LLMS (ChatGPT and Anthropic) for supplemental data based on explicit heuristics we designed (e.g. "melancholic and reflective ambiance" -> `rainy`).
+- Data source: `data/track_data.csv`. We ultimately used 5201 labelled tracks for training/testing, around a third of which were pulled from Spotify-generated and user-made playlists using the Spotify Web API. Fetching the rest of the data was a challenge, as no canonical dataset mapping songs to weather labels exists. We thus decided that since weather labels are **weakly supervised**, it was appropriate to prompt LLMS (ChatGPT and Anthropic) for supplemental data based on **qualitative** heuristics we designed (e.g. "melancholic and reflective ambiance" -> `rainy`).
 - Features: `energy`, `valence`, `tempo`, `acousticness`, `loudness`. `StandardScalar` was used to standardize each feature.
 - Target label: `weather`: one of `sunny`, `cloudy`, `rainy`, `snowy`.
 - Models in `ml/models.py`, trained using `Pipeline` to avoid data leakage: Naive Bayes, Logistic Regression (baseline), Random Forest, Gradient Boosting (production).
