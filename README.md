@@ -45,7 +45,7 @@ python ml/evaluate.py
 
 Evaluation metrics and diagnostics used in `ml/evaluate.py`:
 
-- Weighted F1 on a simple holdout split was initially used, and we later enhanced by using Stratified K-Fold cross-validation with weighted F1
+- Weighted F1 on a simple 80/20 holdout split was initially used, and we later enhanced by using Stratified 5-Fold cross-validation with weighted F1
 - Permutation feature importance (PFI)
 - Confusion matrices (visualized using matplotlib)
 
