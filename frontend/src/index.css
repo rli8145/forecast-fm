@@ -1,91 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
-
-/* Forecast.fm Design System - Immersive Weather Experience */
+/* Forecast.fm — Meteorological Intelligence Terminal */
 
 @layer base {
   :root {
-    /* Base dark theme for immersive experience */
-    --background: 225 25% 8%;
-    --foreground: 210 40% 96%;
+    /* Deep midnight base — almost black with a blue undertone */
+    --background: 222 28% 5%;
+    --foreground: 38 18% 88%;
 
-    --card: 225 25% 12%;
-    --card-foreground: 210 40% 96%;
+    --card: 222 24% 8%;
+    --card-foreground: 38 18% 88%;
 
-    --popover: 225 25% 10%;
-    --popover-foreground: 210 40% 96%;
+    --popover: 222 24% 7%;
+    --popover-foreground: 38 18% 88%;
 
-    --primary: 200 100% 60%;
-    --primary-foreground: 225 25% 8%;
+    /* Warm gold as primary — like a vintage barometer needle */
+    --primary: 38 72% 56%;
+    --primary-foreground: 222 28% 5%;
 
-    --secondary: 225 20% 18%;
-    --secondary-foreground: 210 40% 96%;
+    --secondary: 222 20% 12%;
+    --secondary-foreground: 38 18% 72%;
 
-    --muted: 225 20% 16%;
-    --muted-foreground: 215 20% 55%;
+    --muted: 222 20% 10%;
+    --muted-foreground: 222 12% 42%;
 
-    --accent: 200 80% 50%;
-    --accent-foreground: 225 25% 8%;
+    --accent: 38 72% 56%;
+    --accent-foreground: 222 28% 5%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 52%;
+    --destructive-foreground: 38 18% 88%;
 
-    --border: 225 20% 20%;
-    --input: 225 20% 18%;
-    --ring: 200 100% 60%;
+    --border: 222 18% 14%;
+    --input: 222 20% 10%;
+    --ring: 38 72% 56%;
 
-    --radius: 1rem;
+    --radius: 0.375rem;
 
-    /* Weather-specific palettes */
-    --sunny-primary: 38 100% 55%;
-    --sunny-secondary: 28 100% 60%;
+    /* Weather palettes */
+    --sunny-primary: 38 95% 58%;
+    --sunny-secondary: 28 90% 62%;
     --sunny-glow: 45 100% 70%;
 
-    --cloudy-primary: 220 15% 55%;
-    --cloudy-secondary: 215 20% 45%;
-    --cloudy-muted: 220 10% 65%;
+    --cloudy-primary: 215 18% 62%;
+    --cloudy-secondary: 215 15% 48%;
+    --cloudy-muted: 215 12% 70%;
 
-    --rainy-primary: 210 80% 50%;
-    --rainy-secondary: 200 70% 40%;
-    --rainy-dark: 215 60% 25%;
+    --rainy-primary: 205 85% 58%;
+    --rainy-secondary: 210 75% 42%;
+    --rainy-dark: 215 62% 20%;
 
-    --snowy-primary: 200 30% 90%;
-    --snowy-secondary: 210 40% 85%;
-    --snowy-accent: 195 50% 80%;
+    --snowy-primary: 196 42% 88%;
+    --snowy-secondary: 200 48% 80%;
+    --snowy-accent: 190 52% 82%;
 
-    --thunder-primary: 270 60% 50%;
-    --thunder-secondary: 250 70% 45%;
-    --thunder-flash: 60 100% 95%;
+    --thunder-primary: 265 55% 52%;
+    --thunder-secondary: 250 65% 45%;
+    --thunder-flash: 55 100% 95%;
 
-    --foggy-primary: 210 10% 70%;
-    --foggy-secondary: 215 8% 60%;
-    --foggy-muted: 210 5% 80%;
+    --foggy-primary: 210 8% 72%;
+    --foggy-secondary: 215 6% 62%;
+    --foggy-muted: 210 4% 82%;
 
-    --windy-primary: 175 50% 50%;
-    --windy-secondary: 185 45% 45%;
+    --windy-primary: 175 50% 52%;
+    --windy-secondary: 185 45% 46%;
 
-    /* Glass effect */
-    --glass-bg: 225 25% 15% / 0.6;
-    --glass-border: 210 40% 96% / 0.1;
-    --glass-blur: 20px;
+    /* Glass */
+    --glass-bg: 222 24% 8% / 0.72;
+    --glass-border: 38 18% 88% / 0.07;
+    --glass-blur: 24px;
 
-    /* Sidebar (keeping defaults) */
-    --sidebar-background: 225 25% 10%;
-    --sidebar-foreground: 210 40% 96%;
-    --sidebar-primary: 200 100% 60%;
-    --sidebar-primary-foreground: 225 25% 8%;
-    --sidebar-accent: 225 20% 18%;
-    --sidebar-accent-foreground: 210 40% 96%;
-    --sidebar-border: 225 20% 20%;
-    --sidebar-ring: 200 100% 60%;
+    /* Sidebar */
+    --sidebar-background: 222 28% 5%;
+    --sidebar-foreground: 38 18% 88%;
+    --sidebar-primary: 38 72% 56%;
+    --sidebar-primary-foreground: 222 28% 5%;
+    --sidebar-accent: 222 20% 12%;
+    --sidebar-accent-foreground: 38 18% 88%;
+    --sidebar-border: 222 18% 14%;
+    --sidebar-ring: 38 72% 56%;
   }
 
   .dark {
-    --background: 225 25% 8%;
-    --foreground: 210 40% 96%;
+    --background: 222 28% 5%;
+    --foreground: 38 18% 88%;
   }
 }
 
@@ -95,87 +96,145 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Syne', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Playfair Display', serif;
   }
 }
 
 @layer components {
+  /* Frosted glass — used by WeatherBackground-adjacent cards */
   .glass-card {
-    @apply backdrop-blur-xl border rounded-2xl;
+    @apply backdrop-blur-2xl border rounded-md;
     background: hsl(var(--glass-bg));
     border-color: hsl(var(--glass-border));
   }
 
+  /* Hairline rule — horizontal divider with gradient fade */
+  .rule-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
+  }
+
+  /* Terminal-style input: bottom border only, no background */
+  .terminal-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid hsl(var(--border));
+    border-radius: 0;
+    padding: 0.625rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9375rem;
+    letter-spacing: 0.03em;
+    color: hsl(var(--foreground));
+    width: 100%;
+    transition: border-color 0.25s ease;
+  }
+
+  .terminal-input:focus {
+    border-bottom-color: hsl(var(--primary));
+    outline: none;
+    box-shadow: none;
+  }
+
+  .terminal-input::placeholder {
+    color: hsl(var(--muted-foreground));
+    opacity: 0.6;
+  }
+
+  /* Confidence meter */
+  .confidence-bar {
+    height: 2px;
+    background: hsl(var(--muted));
+    position: relative;
+    overflow: hidden;
+    border-radius: 1px;
+  }
+
+  .confidence-bar-fill {
+    height: 100%;
+    background: hsl(var(--primary));
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+    transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Feature data pill */
+  .feature-pill {
+    @apply inline-flex flex-col items-center gap-0.5 px-3 py-2 rounded border;
+    border-color: hsl(var(--border));
+    background: hsl(var(--muted) / 0.5);
+    min-width: 64px;
+  }
+
+  /* Data/mono label class */
+  .data-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Large italic weather reveal */
+  .weather-readout {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* Scan-line loading bar */
+  .scan-bar {
+    position: relative;
+    height: 1px;
+    background: hsl(var(--border));
+    overflow: hidden;
+  }
+
+  .scan-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+    animation: scanBeam 1.6s ease-in-out infinite;
+  }
+
+  /* Weather gradient backgrounds (used by WeatherBackground.tsx) */
   .weather-gradient-sunny {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--sunny-primary)) 0%,
-      hsl(var(--sunny-secondary)) 50%,
-      hsl(var(--sunny-glow)) 100%
-    );
+    background: linear-gradient(135deg, hsl(var(--sunny-primary)) 0%, hsl(var(--sunny-secondary)) 50%, hsl(var(--sunny-glow)) 100%);
   }
 
   .weather-gradient-cloudy {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--cloudy-primary)) 0%,
-      hsl(var(--cloudy-secondary)) 60%,
-      hsl(var(--cloudy-muted)) 100%
-    );
+    background: linear-gradient(180deg, hsl(var(--cloudy-primary)) 0%, hsl(var(--cloudy-secondary)) 60%, hsl(var(--cloudy-muted)) 100%);
   }
 
   .weather-gradient-rainy {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--rainy-dark)) 0%,
-      hsl(var(--rainy-secondary)) 50%,
-      hsl(var(--rainy-primary)) 100%
-    );
+    background: linear-gradient(180deg, hsl(var(--rainy-dark)) 0%, hsl(var(--rainy-secondary)) 50%, hsl(var(--rainy-primary)) 100%);
   }
 
   .weather-gradient-snowy {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--snowy-accent)) 0%,
-      hsl(var(--snowy-secondary)) 50%,
-      hsl(var(--snowy-primary)) 100%
-    );
+    background: linear-gradient(180deg, hsl(var(--snowy-accent)) 0%, hsl(var(--snowy-secondary)) 50%, hsl(var(--snowy-primary)) 100%);
   }
 
   .weather-gradient-thunder {
-    background: linear-gradient(
-      180deg,
-      hsl(225 30% 10%) 0%,
-      hsl(var(--thunder-secondary)) 50%,
-      hsl(var(--thunder-primary)) 100%
-    );
+    background: linear-gradient(180deg, hsl(225 32% 8%) 0%, hsl(var(--thunder-secondary)) 50%, hsl(var(--thunder-primary)) 100%);
   }
 
   .weather-gradient-foggy {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--foggy-muted)) 0%,
-      hsl(var(--foggy-secondary)) 50%,
-      hsl(var(--foggy-primary)) 100%
-    );
+    background: linear-gradient(180deg, hsl(var(--foggy-muted)) 0%, hsl(var(--foggy-secondary)) 50%, hsl(var(--foggy-primary)) 100%);
   }
 
   .weather-gradient-windy {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--windy-secondary)) 0%,
-      hsl(var(--windy-primary)) 50%,
-      hsl(200 60% 55%) 100%
-    );
+    background: linear-gradient(135deg, hsl(var(--windy-secondary)) 0%, hsl(var(--windy-primary)) 50%, hsl(200 60% 55%) 100%);
   }
 
   .glow-text {
-    text-shadow: 0 0 40px hsl(var(--primary) / 0.5);
+    text-shadow: 0 0 60px hsl(var(--primary) / 0.4);
   }
 }
 
@@ -207,7 +266,17 @@
   .animate-fog {
     animation: fog 15s ease-in-out infinite;
   }
+
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-mono-data {
+    font-family: 'JetBrains Mono', monospace;
+  }
 }
+
+/* ─── Keyframes ─────────────────────────────────── */
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -242,4 +311,14 @@
 @keyframes fog {
   0%, 100% { transform: translateX(-10%) scale(1); opacity: 0.4; }
   50% { transform: translateX(10%) scale(1.1); opacity: 0.6; }
+}
+
+@keyframes scanBeam {
+  0% { left: -40%; }
+  100% { left: 140%; }
+}
+
+@keyframes waveBar {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.25); }
 }
