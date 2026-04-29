@@ -65,9 +65,12 @@ We initially intended for the Naive Bayes model to be a deliberately weak baseli
 
 More expressive models such as Gradient Boosting are nonetheless able to achieve additional gains by modeling residual feature dependencies. For instance, Naive Bayes struggled on differentiating between the similar classes of `snowy` and `rainy`, but Gradient Boosting reduced from **146 to 59** such misclassifications.
 
-## Demo Paths
+## Demo
 
 [Video Demo](https://drive.google.com/file/d/1nc7trHjiscxEsSmc9bRy0GR-1T8RSImB/view?usp=sharing)
+
+New landing page:
+![Landing page](frontend/landing_page.png)
 
 ### Option 1: Run the Website Locally
 
