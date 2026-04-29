@@ -45,7 +45,7 @@ const Index = () => {
                   ML-Powered Classification
                 </span>
                 <span className="font-mono-data text-[10px] text-muted-foreground/45 tracking-wider">
-                  Gradient Boosting · 5,201 Tracks · 75.8% F1
+                  Gradient Boosting · 75.8% F1
                 </span>
               </div>
             </div>
