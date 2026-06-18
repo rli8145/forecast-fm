@@ -1,6 +1,4 @@
-# Weather-Conditioned Music Classification Engine
-
-Predict a suitable weather category given a user-inputted song.
+Core: Predict a suitable weather category given a user-inputted song.
 
 ## Tech Stack
 - Backend: Python - scikit-learn, pandas, matplotlib, FastAPI (served via Uvicorn)
@@ -27,7 +25,7 @@ Predict a suitable weather category given a user-inputted song.
 ## APIs Used
 - Spotify Web API (song lookup)
 - ReccoBeats API (audio features)
-- OpenWeatherMap API (real-time weather context) - NOT USED CURRENTLY
+- OpenWeatherMap API (real-time weather context) - not used in current version
 
 ## ML Component
 
